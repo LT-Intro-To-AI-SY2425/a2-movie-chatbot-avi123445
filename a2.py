@@ -15,6 +15,7 @@ def match(pattern: List[str], source: List[str]) -> List[str]:
     """
     sind = 0  # current index we are looking at in source list
     pind = 0  # current index we are looking at in pattern list
+    accumulate = ""
     result: List[str] = []  # to store substitutions we will return if matched
     print ("avi test print 1")
     # keep checking as long as we haven't hit the end of either pattern or source while
@@ -42,6 +43,11 @@ def match(pattern: List[str], source: List[str]) -> List[str]:
                 res = " ".join(source[sind:])
                 result.append(res)
                 return [res]
+            else:
+                # For this part, you'll need to concatenate an accumulate variable that adds a space in between until it find the matching pattern in source.
+                accumulate += pattern + " "
+                if accumulate == pattern:
+                    break
                 # pind += 1 
                 # sind = len(source)
         # 3) if we reached the end of the source but not the pattern
@@ -72,7 +78,7 @@ def match(pattern: List[str], source: List[str]) -> List[str]:
 print("step 1")
 if __name__ == "__main__":
 #    assert match(["what", "movies", "were", "made", "in", "_"],["what", "movies", "were", "made", "in", "1974"]) == ["1974"], "test 1 failed"
-    assert match(["what", "actors", "were","in","_"], ["what", "actors", "were","in","it"]) == ["lillis"], "test 1 failed"
+#    assert match(["what", "actors", "were","in","_"], ["what", "actors", "were","in","it"]) == ["lillis"], "test 1 failed"
     assert match(["x", "z", "z"], ["x", "y", "z"]) == None, "test 2 failed"
     assert match(["x", "y"], ["x", "y", "z"]) == None, "test 3 failed"
     assert match(["x", "y", "z", "z"], ["x", "y", "z"]) == None, "test 4 failed"
