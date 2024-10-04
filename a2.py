@@ -15,8 +15,8 @@ def match(pattern: List[str], source: List[str]) -> List[str]:
     """
     sind = 0  # current index we are looking at in source list
     pind = 0  # current index we are looking at in pattern list
-    accumulate = ""
     result: List[str] = []  # to store substitutions we will return if matched
+
     print ("avi test print 1")
     # keep checking as long as we haven't hit the end of either pattern or source while
     # pind is still a valid index OR sind is still a valid index (valid index means that
@@ -30,7 +30,7 @@ def match(pattern: List[str], source: List[str]) -> List[str]:
 
         # 1) if we reached the end of the pattern but not source
         print ("Avi test print 2")
-        if pind == len(pattern):
+        if pind == len(pattern) and sind != len(source):
             print ("Avi test print 3")
             return None
         # 2) if the current thing in the pattern is a %
@@ -42,12 +42,17 @@ def match(pattern: List[str], source: List[str]) -> List[str]:
             if pind == len(pattern) - 1:
                 res = " ".join(source[sind:])
                 result.append(res)
-                return [res]
+                return result
             else:
                 # For this part, you'll need to concatenate an accumulate variable that adds a space in between until it find the matching pattern in source.
-                accumulate += pattern + " "
-                if accumulate == pattern:
-                    break
+                pind += 1
+                accum = ""
+                while pattern[pind] != source[sind]:
+                    accum += source[sind] + " "
+                    sind += 1
+                    if sind == len(source):
+                        return None
+                result.append(accum.rstrip())
                 # pind += 1 
                 # sind = len(source)
         # 3) if we reached the end of the source but not the pattern
